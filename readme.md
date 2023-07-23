@@ -135,4 +135,49 @@ func main(){
 	var month = make([]string,12)
 }
 ```
+
  parameter pertama keyword `make` ditulis dengan tipe data element array yang diinginkan, dan parameter ke-dua adalah jumplah elementnya.
+
+# slice
+
+merupakan referensi element array, bisa dibuat atau juga dihasilkan dari manipulasi sebuah array atau sclice lainnya. Karena merupakan referensi, menjadikan perubahan data di tiap element akan berdampak pada slice yang lain yang memiliki alamat memori yang sama.
+
+cara pembuatan slice sama seperti cara pembuatan array pada umumnya, bedanya tidak perlu mendefinisikan jumplah element yang bisa di tampung ketika awal deklarasi.
+
+```go
+func main(){
+	var fruits = []string{"apple","banana","grape","melon"}
+}
+```
+
+slice adalah referensi dari tiap tiap element yang ada di sebuah array, sedangkan array adalah kumpulan dari sebuah element.
+
+```go
+var fruits = []string{"apple","banana","grape","melon"}
+var newFruits = fruits[0:3]
+
+fmt.Println(newFruits)
+```
+
+`fruits[0:3]` maksudnya adalah pengaksesan element dalam fruits dimulai dari index ke-0 sampai index sebelum ke-3 dan kemudian disimpan didalam variabel `newFruits`.
+
+Pada contoh di atas `newFruits` adalah slice baru yang tercetak atau referensi dari slice `fruits`.
+
+list operasi operasi yang menggunakan teknik 2 index yang bisa dilakukan :
+
+```go
+var fruits = []string{"apple","banana","grape","melon"}
+```
+
+|operasi|output|keterangan|
+|-------|------|----------|
+|`fruits[0:2]`|`["apple","banana"]`|semua element dari index ke-0 sampai sebelum index ke-2|
+|`fruits[0:4]`|`["apple","banana","grape","melon"]`|semua element dari index ke-0 sampai sebelum index ke-4|
+|`fruits[0:0]`|`[]`|menghasilkan slice kosong|
+|`fruits[4:4]`|`[]`|menghasilkan sclie kosong|
+|`fruits[4:0]`|`[]`|error pada saat penulisan `fruits[a:b]` karena `a` harus lebih kecil dari `b`|
+|`fruits[:]`|`["apple","banana","grape","melon"]`|semua element|
+|`fruits[2:]`|`["grape","melon"]`|semua element yang dimulai dari index ke-2|
+|`fruits[:2]`|`["apple","banana"]`|semua element sebelum index ke-2 dari akhir|
+
+jika sebuah element pada slice diubah, maka element element yang memiliki referensi yang sama dengan element slice yang diubah tersebut, maka semuanya akan ikut berubah.

@@ -122,6 +122,51 @@ func alokasiMake() {
 	}
 }
 
+func slice() {
+	var fruits = []string{"apple", "banana", "grape", "melon"}
+
+	for i, fruit := range fruits {
+		fmt.Printf("isi index ke-%d : %s\n", i, fruit)
+	}
+
+	{
+		var fruits = [4]string{"apple", "banana", "grape", "melon"}
+
+		var newFruits = fruits[1:4] // diambil dari element ke-1 hingga element sebelum index ke-4
+
+		fmt.Println(newFruits)
+	}
+}
+
+func sliceReferensi() {
+	var fruits = []string{
+		"apel",
+		"grape",
+		"banana",
+		"melon",
+	}
+
+	var aFruits = fruits[0:3]
+	var bFruits = fruits[1:4]
+
+	var aaFruits = aFruits[1:2]
+	var bbFruits = bFruits[0:1]
+
+	fmt.Println(fruits)
+	fmt.Println(aFruits)
+	fmt.Println(bFruits)
+	fmt.Println(aaFruits)
+	fmt.Println(bbFruits)
+
+	bbFruits[0] = "pinnaple" // buah "grape" diubah menjadi "pinnaple"
+
+	fmt.Println(fruits)
+	fmt.Println(aFruits)
+	fmt.Println(bFruits)
+	fmt.Println(aaFruits)
+	fmt.Println(bbFruits)
+}
+
 func main() {
 	contohPenerapan()
 	fmt.Println("--------------------")
@@ -136,4 +181,10 @@ func main() {
 	arrayForRange()
 	fmt.Println("--------------------")
 	alokasiMake()
+	fmt.Println("--------------------")
+	fmt.Println("===== SLICE =====")
+	fmt.Println("--------------------")
+	slice()
+	fmt.Println("--------------------")
+	sliceReferensi()
 }
