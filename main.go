@@ -2,6 +2,22 @@ package main
 
 import "fmt"
 
+func cetakHasil(s []string, b bool) {
+	if b {
+		fmt.Printf("isi : %s, panjang %d, lebar %d\n", s, len(s), cap(s))
+	} else {
+		fmt.Println(s)
+	}
+}
+
+func cetakHasilInt(i []int, b bool) {
+	if b {
+		fmt.Printf("isi %d, panjang %d, lebar %d\n", i, len(i), cap(i))
+	} else {
+		fmt.Println(i)
+	}
+}
+
 func contohPenerapan() {
 	var names [4]string
 
@@ -134,7 +150,7 @@ func slice() {
 
 		var newFruits = fruits[1:4] // diambil dari element ke-1 hingga element sebelum index ke-4
 
-		fmt.Println(newFruits)
+		cetakHasil(newFruits, false)
 	}
 }
 
@@ -167,6 +183,115 @@ func sliceReferensi() {
 	fmt.Println(bbFruits)
 }
 
+func lenFunc() {
+	var names = []string{"fani", "alfi", "fanialfi"}
+
+	fmt.Println(len(names)) // len() untuk mengecek panjang sebuah slice
+
+	for i, name := range names {
+		fmt.Printf("index ke-%d berisi : %s panjangnya %d\n", i, name, len(name)) // len() untuk mengecek panjang string
+
+		for _, alphabet := range name {
+			fmt.Printf("%c\n", alphabet)
+		}
+
+		fmt.Println()
+	}
+}
+
+func capFunc() {
+	var fruits = []string{
+		"Pisang",
+		"Pepaya",
+		"Alpukat",
+		"Mangga",
+		"Apple",
+		"Lemon",
+		"Delima",
+		"Kiwi",
+	}
+
+	fmt.Println("panjang slice :", len(fruits))
+	fmt.Println("kapasitas slice :", cap(fruits))
+	fmt.Println(fruits)
+
+	fmt.Println()
+
+	var aFruits = fruits[0:5]
+	fmt.Println("panjang slice :", len(aFruits))
+	fmt.Println("kapasitas slice:", cap(aFruits))
+	fmt.Println(aFruits)
+
+	fmt.Println()
+
+	var bFruits = fruits[3:7]
+	fmt.Println("panjang slice :", len(bFruits))
+	fmt.Println("kapasitas slice :", cap(bFruits))
+	fmt.Println(bFruits)
+}
+
+func appendFunc() {
+	var fruits = []string{"Apel", "Pisang", "Anggur"}
+
+	var newFruits = append(fruits, "Melon", "Pepaya") // fungsi append() mengembalikan slice baru
+
+	cetakHasil(fruits, false)
+	cetakHasil(newFruits, false)
+
+	fmt.Println()
+
+	{
+		var fruits = []string{"apel", "pisang", "anggur", "melon", "pepaya"}
+		var aFruits = fruits[0:3]
+
+		cetakHasil(fruits, true)
+		cetakHasil(aFruits, true)
+
+		fmt.Println()
+
+		var bFruits = append(aFruits, "jagung") // jika size lebih besar dari panjang slice, maka element baru ditempatkan dalam cangkupan size-nya, dan menjadikan slice dengan referensi yang sama akan ikut berubah.
+		cetakHasil(fruits, true)
+		cetakHasil(aFruits, true)
+		cetakHasil(bFruits, true)
+	}
+}
+
+func copyFunc() {
+	dst := make([]string, 4)
+	var src = []string{"a", "b", "c"}
+
+	fmt.Println(dst)
+	cetakHasil(src, true)
+	copy(dst, src)
+	cetakHasil(dst, true)
+
+	fmt.Println()
+
+	{
+		var dst = []string{"melon", "melon", "melon"}
+		var src = []string{"apel", "anggur"}
+
+		fmt.Println(dst, src)
+		copy(dst, src)
+		fmt.Println(dst, src)
+	}
+}
+
+func tigaIndex() {
+	var A = []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	var B = A[0:5:5]
+	// var C = A[3:8:19] // tidak bisa, karena ukuran slice A = 10, dan tidak bisa menggunakan 19
+	C := A[3:8:8]
+
+	cetakHasilInt(A, true)
+	cetakHasilInt(B, true)
+	cetakHasilInt(C, true)
+
+	for i, num := range C {
+		fmt.Printf("index ke-%d : %d\n", i, num)
+	}
+}
+
 func main() {
 	contohPenerapan()
 	fmt.Println("--------------------")
@@ -187,4 +312,16 @@ func main() {
 	slice()
 	fmt.Println("--------------------")
 	sliceReferensi()
+	fmt.Println("--------------------")
+	fmt.Println("===== Built-In Function =====")
+	fmt.Println("--------------------")
+	lenFunc()
+	fmt.Println("--------------------")
+	capFunc()
+	fmt.Println("--------------------")
+	appendFunc()
+	fmt.Println("--------------------")
+	copyFunc()
+	fmt.Println("--------------------")
+	tigaIndex()
 }
